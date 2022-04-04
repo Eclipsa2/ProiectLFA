@@ -11,32 +11,37 @@ for i in range(int(m)):
 
 #print(adiacenta)
 
-def dfs(nod, cuvant, indexCuvant, nodFinal):
-    global adiacenta, drum
+def dfs(nod, cuvant, indexCuvant):
+    global adiacenta, drum, stariFinaleInt
 
     drum.append(nod)
 
     if indexCuvant == len(cuvant):
-        if nod == nodFinal:
+        if nod in stariFinaleInt:
             return True
         else:
             return False
 
     for i in adiacenta[nod]:
         if cuvant[indexCuvant] == i[1]:
-            final = dfs(i[0], cuvant, indexCuvant + 1, nodFinal)
+            final = dfs(i[0], cuvant, indexCuvant + 1)
             if (final == True):
                 return True
             drum.pop()
 
     return False
 
-stareFinala = int(fisier.readline())
+stareInitiala = int(fisier.readline())
+stariFinale = fisier.readline()
+stariFinaleSplit = stariFinale.split()
+stariFinaleInt = []
+for i in range(int(stariFinaleSplit[0])):
+    stariFinaleInt.append(int(stariFinaleSplit[i+1]))
 nrCuvinte = int(fisier.readline())
 
 for i in range(nrCuvinte):
     cuvant = fisier.readline()
-    if(dfs(0, cuvant[:-1], 0, stareFinala)):
+    if(dfs(stareInitiala, cuvant[:-1], 0)):
         print("DA")
         print(drum)
     else:
